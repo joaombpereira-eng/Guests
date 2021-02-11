@@ -1,6 +1,8 @@
 package com.coding.guests.service.repository
 
+import android.content.ContentValues
 import android.content.Context
+import com.coding.guests.service.constants.DataBaseConstants
 import com.coding.guests.service.model.GuestModel
 
 class GuestRepository private constructor(context: Context) {
@@ -18,21 +20,31 @@ class GuestRepository private constructor(context: Context) {
         }
     }
 
-    fun save(guest: GuestModel) {
-        
+    fun save(guest: GuestModel): Boolean {
+        return try {
+            val db = mGuestDataBaseHelper.writableDatabase
+
+            val contentValues = ContentValues()
+            contentValues.put(DataBaseConstants.GUEST.COLUMNS.NAME, guest.name)
+            contentValues.put(DataBaseConstants.GUEST.COLUMNS.PRESENCE, guest.presense)
+            db.insert(DataBaseConstants.GUEST.TABLE_NAME, null, contentValues)
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
-    fun getAll(): List<GuestModel>{
+    fun getAll(): List<GuestModel> {
         val list: MutableList<GuestModel> = ArrayList()
         return list
     }
 
-    fun getPresent(): List<GuestModel>{
+    fun getPresent(): List<GuestModel> {
         val list: MutableList<GuestModel> = ArrayList()
         return list
     }
 
-    fun getAbsent(): List<GuestModel>{
+    fun getAbsent(): List<GuestModel> {
         val list: MutableList<GuestModel> = ArrayList()
         return list
     }

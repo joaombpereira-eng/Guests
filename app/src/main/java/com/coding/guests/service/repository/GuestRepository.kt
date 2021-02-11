@@ -2,7 +2,7 @@ package com.coding.guests.service.repository
 
 import com.coding.guests.service.model.GuestModel
 
-class GuestRepository() {
+class GuestRepository {
 
     fun getAll(): List<GuestModel>{
         val list: MutableList<GuestModel> = ArrayList()

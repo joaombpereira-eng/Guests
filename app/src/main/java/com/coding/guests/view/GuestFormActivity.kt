@@ -14,6 +14,7 @@ import com.coding.guests.viewmodel.GuestFormViewModel
 class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
     private val binding by lazy { ActivityGuestFormBinding.inflate(layoutInflater) }
     private lateinit var mViewModel: GuestFormViewModel
+    private var mGuestId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,9 +22,11 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 
         mViewModel = ViewModelProvider(this).get(GuestFormViewModel::class.java)
 
-        loadData()
         setListeners()
         observe()
+        loadData()
+
+        binding.radioPresent.isChecked = true
     }
 
     override fun onClick(v: View?) {
@@ -32,7 +35,7 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
             val name = binding.editName.text.toString()
             val presence = binding.radioPresent.isChecked
 
-            mViewModel.save(name, presence)
+            mViewModel.save(mGuestId, name, presence)
         }
     }
 
@@ -61,8 +64,8 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
     private fun loadData() {
         val bundle = intent.extras
         if (bundle != null) {
-            val id = bundle.getInt(GuestConstants.GUESTID)
-            mViewModel.load(id)
+            mGuestId = bundle.getInt(GuestConstants.GUESTID)
+            mViewModel.load(mGuestId)
         }
     }
 }

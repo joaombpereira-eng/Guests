@@ -14,21 +14,16 @@ import com.coding.guests.R
 import com.coding.guests.service.constants.GuestConstants
 import com.coding.guests.view.adapter.GuestAdapter
 import com.coding.guests.view.listener.GuestListener
-import com.coding.guests.viewmodel.AllGuestsViewModel
+import com.coding.guests.viewmodel.GuestsViewModel
 
 class AllGuestsFragment : Fragment() {
 
-    private lateinit var mViewModel: AllGuestsViewModel
+    private lateinit var mViewModel: GuestsViewModel
     private val mAdapter: GuestAdapter = GuestAdapter()
     private lateinit var mListener: GuestListener
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        mViewModel =
-            ViewModelProvider(this).get(AllGuestsViewModel::class.java)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, s: Bundle?): View? {
+        mViewModel = ViewModelProvider(this).get(GuestsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_all, container, false)
 
         // RecyclerView
@@ -54,7 +49,7 @@ class AllGuestsFragment : Fragment() {
 
             override fun onDelete(id: Int) {
                 mViewModel.delete(id)
-                mViewModel.load()
+                mViewModel.load(GuestConstants.FILTER.EMPTY)
             }
         }
 
@@ -66,7 +61,7 @@ class AllGuestsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        mViewModel.load()
+        mViewModel.load(GuestConstants.FILTER.EMPTY)
     }
 
     private fun observer() {

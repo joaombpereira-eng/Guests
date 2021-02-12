@@ -44,6 +44,7 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(applicationContext, "Sucesso", Toast.LENGTH_SHORT).show()
             else
                 Toast.makeText(applicationContext, "Falha", Toast.LENGTH_SHORT).show()
+            finish()
         })
     }
 }

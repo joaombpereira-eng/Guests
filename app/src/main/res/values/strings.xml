@@ -10,4 +10,20 @@
     <string name="menu_all_guests">All</string>
     <string name="menu_presents">Presents</string>
     <string name="menu_absents">Absents</string>
+    <string name="guest_registration">Guest Registration</string>
+    <string name="absents">Absents</string>
+    <string name="presents">Presents</string>
+    <string name="all_guests">All Guests</string>
+    <string name="save">Save</string>
+    <string name="absent">Absent</string>
+    <string name="present">Present</string>
+    <string name="not_confirmed">Not Confirmed</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="name">Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="remove_guest">Remove a Guest</string>
+    <string name="want_remove">Do you want to remove this guest from the list?</string>
+    <string name="remove">Remove</string>
+    <string name="removed_with_success">Guest removed with success.</string>
+    <string name="total">Total</string>
 </resources>

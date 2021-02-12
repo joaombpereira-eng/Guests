@@ -18,7 +18,7 @@ import com.coding.guests.viewmodel.AllGuestsViewModel
 
 class AllGuestsFragment : Fragment() {
 
-    private lateinit var allGuestsViewModel: AllGuestsViewModel
+    private lateinit var mViewModel: AllGuestsViewModel
     private val mAdapter: GuestAdapter = GuestAdapter()
     private lateinit var mListener: GuestListener
 
@@ -27,22 +27,22 @@ class AllGuestsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        allGuestsViewModel =
+        mViewModel =
             ViewModelProvider(this).get(AllGuestsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_all, container, false)
 
         // RecyclerView
-        // 1 - Obter recycler
+        // 1 - Obtain a recycler
         val recycler = root.findViewById<RecyclerView>(R.id.recycler_all_guests)
 
-        // 2 - Definir layout
+        // 2 - Define a layout
         recycler.layoutManager = LinearLayoutManager(context)
 
-        // 3 - Definir um adapter: junta os dados do repositório com o layout (fragment_all.xml)
+        // 3 - Define a adapter: joins the repository data with the layout (fragment_all.xml)
         recycler.adapter = mAdapter
 
         mListener = object : GuestListener {
-            override fun OnClick(id: Int) {
+            override fun onClick(id: Int) {
                 val intent = Intent(context, GuestFormActivity::class.java)
 
                 val bundle = Bundle()
@@ -50,6 +50,11 @@ class AllGuestsFragment : Fragment() {
 
                 intent.putExtras(bundle)
                 startActivity(intent)
+            }
+
+            override fun onDelete(id: Int) {
+                mViewModel.delete(id)
+                mViewModel.load()
             }
         }
 
@@ -61,11 +66,11 @@ class AllGuestsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        allGuestsViewModel.load()
+        mViewModel.load()
     }
 
     private fun observer() {
-        allGuestsViewModel.guestList.observe(viewLifecycleOwner, Observer {
+        mViewModel.guestList.observe(viewLifecycleOwner, Observer {
             mAdapter.updateGuests(it)
         })
     }
